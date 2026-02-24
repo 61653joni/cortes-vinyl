@@ -1,1 +1,181 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(180deg, #14001f 0%, #0a0014 100%);
+  color: #00f7ff;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: linear-gradient(90deg, #2b0040, #12001c);
+  border-bottom: 2px solid #00f7ff;
+}
+
+.brand h2 {
+  margin: 0;
+  font-size: 26px;
+  color: #ffe600;
+  text-shadow: 0 0 8px #ff00c8, 0 0 20px #ff00c8;
+  letter-spacing: 3px;
+}
+
+/* SEARCH */
+.search input {
+  background: transparent;
+  border: 2px solid #00f7ff;
+  color: #00f7ff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: 0 0 10px #00f7ff;
+}
+
+.search input::placeholder {
+  color: #00f7ff;
+  opacity: 0.6;
+}
+
+/* BOTONES */
+.btn-neon {
+  background: transparent;
+  border: 2px solid #ff00c8;
+  color: #ff00c8;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 0 10px #ff00c8;
+}
+
+.btn-neon:hover {
+  background: #ff00c8;
+  color: #14001f;
+  box-shadow: 0 0 20px #ff00c8;
+}
+
+/* CARRITO */
+.carrito {
+  font-weight: bold;
+  color: #ffe600;
+  text-shadow: 0 0 10px #ffe600;
+}
+
+/* PRODUCTOS */
+.productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 40px;
+}
+
+.producto {
+  background: #1b002b;
+  border: 1px solid #ff00c8;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 15px #ff00c8;
+  transition: 0.3s;
+}
+
+.producto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px #00f7ff;
+}
+
+.producto h3 {
+  color: #00f7ff;
+}
+
+.producto strong {
+  color: #ffe600;
+  font-size: 18px;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: #12001c;
+  border-top: 2px solid #ff00c8;
+  color: #00f7ff;
+}
+
+/* FOOTER PRINCIPAL */
+.footer {
+  background: linear-gradient(180deg, #12001c, #0a0014);
+  border-top: 2px solid #00f7ff;
+  padding-top: 40px;
+  margin-top: 60px;
+}
+
+/* CONTENEDOR */
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  padding: 0 60px 40px 60px;
+}
+
+/* COLUMNAS */
+.footer-col h3 {
+  color: #ffe600;
+  text-shadow: 0 0 10px #ff00c8;
+  letter-spacing: 2px;
+}
+
+.footer-col h4 {
+  color: #00f7ff;
+  margin-bottom: 10px;
+}
+
+.footer-col p {
+  color: #c800ff;
+  font-size: 14px;
+  margin: 6px 0;
+}
+
+/* LINKS */
+.footer-col a {
+  display: block;
+  color: #00f7ff;
+  text-decoration: none;
+  margin: 6px 0;
+  transition: 0.3s;
+}
+
+.footer-col a:hover {
+  color: #ff00c8;
+  text-shadow: 0 0 8px #ff00c8;
+}
+
+/* REDES */
+.socials {
+  margin-top: 10px;
+  display: flex;
+  gap: 15px;
+}
+
+.socials span {
+  cursor: pointer;
+  color: #ffe600;
+  transition: 0.3s;
+}
+
+.socials span:hover {
+  color: #00f7ff;
+  text-shadow: 0 0 10px #00f7ff;
+}
+
+/* FOOTER BOTTOM */
+.footer-bottom {
+  text-align: center;
+  padding: 15px;
+  border-top: 1px solid #ff00c8;
+  color: #00f7ff;
+  font-size: 13px;
+  background-color: #0a0014;
+}

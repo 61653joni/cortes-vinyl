@@ -1,0 +1,14 @@
+
+<main class="main">
+
+  <div class="productos">
+    <div class="producto" *ngFor="let p of productosFiltrados">
+      <img [src]="p.imagen" alt="">
+      <h3>{{ p.artista }}</h3>
+      <p>{{ p.nombre }}</p>
+      <strong>${{ p.precio }}</strong>
+      <button (click)="agregarAlCarrito(p)">Agregar</button>
+    </div>
+  </div>
+
+</main>

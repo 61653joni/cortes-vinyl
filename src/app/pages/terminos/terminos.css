@@ -1,0 +1,31 @@
+.terminos {
+  padding: 80px 120px;
+  background: radial-gradient(circle at top, #2a003f 0%, #140021 60%, #0b0015 100%);
+  min-height: 100vh;
+  color: white;
+}
+
+.terminos h1 {
+  font-size: 40px;
+  color: #00ff66;
+  text-shadow: 0 0 15px #00ff66;
+  margin-bottom: 40px;
+}
+
+.terminos h2 {
+  margin-top: 40px;
+  color: #00f0ff;
+  text-shadow: 0 0 10px #00f0ff;
+}
+
+.terminos p {
+  margin-top: 15px;
+  line-height: 1.7;
+  color: #ff007f;
+}
+
+.final {
+  margin-top: 60px;
+  font-weight: bold;
+  color: #ff004c;
+}
