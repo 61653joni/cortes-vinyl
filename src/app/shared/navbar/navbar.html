@@ -1,4 +1,32 @@
 <nav class="navbar">
-  <a routerLink="/">Inicio</a>
-  <a routerLink="/login">Login</a>
+  <a class="logo" routerLink="/">JC <span>Vende</span> Libros</a>
+
+  <ul class="nav-links">
+    <li><a routerLink="/inicio">Inicio</a></li>
+    <li><a routerLink="/genero/ficcion">Ficcion</a></li>
+    <li><a routerLink="/genero/historia">Historia</a></li>
+    <li><a routerLink="/genero/ciencia">Ciencia</a></li>
+    <li><a routerLink="/genero/desarrollo-personal">Desarrollo personal</a></li>
+    <li><a routerLink="/genero/infantil">Infantil</a></li>
+    <li><a routerLink="/genero/clasicos">Clasicos</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <a *ngIf="!usuario" routerLink="/login" class="btn-login">Iniciar sesion</a>
+
+    <div *ngIf="usuario" class="user-menu">
+      <button class="user-trigger" (click)="menuAbierto = !menuAbierto">
+        <div class="avatar">{{ (usuario.nombre || usuario.email)[0].toUpperCase() }}</div>
+        <span class="user-name">{{ usuario.nombre || usuario.email }}</span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <div class="dropdown" *ngIf="menuAbierto">
+        <a routerLink="/perfil" (click)="menuAbierto = false" class="dropdown-item">Ver perfil</a>
+        <button (click)="logout()" class="dropdown-item dropdown-logout">Cerrar sesion</button>
+      </div>
+    </div>
+  </div>
 </nav>

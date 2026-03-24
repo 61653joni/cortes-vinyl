@@ -6,6 +6,12 @@
   <input type="text" placeholder="CURP" [(ngModel)]="curp">
   <input type="text" placeholder="Teléfono" [(ngModel)]="telefono">
   <input type="email" placeholder="Correo" [(ngModel)]="email">
+  <input type="password" placeholder="Contraseña" [(ngModel)]="password">
 
   <button (click)="registrar()">Registrarse</button>
+
+  <p>
+    ¿Ya tienes cuenta?
+    <a routerLink="/login">Inicia sesión</a>
+  </p>
 </div>

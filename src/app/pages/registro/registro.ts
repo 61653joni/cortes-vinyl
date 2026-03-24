@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { SupabaseService } from '../../services/supabase';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './registro.html',
   styleUrl: './registro.css'
 })
@@ -16,19 +17,29 @@ export class RegistroComponent {
   curp = '';
   telefono = '';
   email = '';
+  password = '';
 
-  constructor(private supabase: SupabaseService) {}
+  constructor(private supabaseService: SupabaseService) {}
 
   async registrar() {
 
-    const { data, error } = await this.supabase['supabase']
+    if (!this.email || !this.password) {
+      alert('Correo y contraseña obligatorios');
+      return;
+    }
+
+    const client = this.supabaseService['supabase'];
+
+    const { data, error } = await client
       .from('usuarios')
       .insert([{
         nombre: this.nombre,
         apellido: this.apellido,
         curp: this.curp,
         telefono: this.telefono,
-        email: this.email
+        email: this.email,
+        password: this.password,
+        tipo_usu: 'estudiante'
       }]);
 
     if (error) {

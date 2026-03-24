@@ -10,6 +10,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
  { path: 'registro', component: RegistroComponent },
 
+
   // 🔥 opcional pero recomendado (evita errores de rutas)
   { path: '**', redirectTo: '' }
 ]; 

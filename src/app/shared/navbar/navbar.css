@@ -1,16 +1,105 @@
 .navbar {
-  background: black;
-  padding: 10px;
   display: flex;
-  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 4rem;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-a {
-  color: white;
+.navbar .logo {
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #111;
   text-decoration: none;
-  font-weight: bold;
+  letter-spacing: 0.03em;
+}
+.navbar .logo span { color: #c0392b; }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #444;
+  font-size: 0.9rem;
+}
+.nav-links a:hover { color: #111; }
+
+.nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+.btn-login {
+  background: #1a3a6b;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
+/* User menu */
+.user-menu { position: relative; }
+
+.user-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  color: #111;
+  font-size: 0.85rem;
 }
+.user-trigger:hover { border-color: #111; }
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  min-width: 150px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: #111;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+.dropdown-item:hover { background: #f5f5f5; }
+
+.dropdown-logout { color: #c0392b; }
+.dropdown-logout:hover { background: #fff0f0; }

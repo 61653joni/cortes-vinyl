@@ -1,0 +1,178 @@
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 6rem 4rem;
+  background: #f9f9f9;
+  border-bottom: 1px solid #e0e0e0;
+}
+.hero-tag {
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c0392b;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #111;
+  margin-bottom: 1rem;
+}
+.hero h1 em { font-style: italic; color: #444; }
+.hero-desc {
+  font-size: 1rem;
+  color: #666;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+.hero-btns { display: flex; gap: 1rem; justify-content: center; }
+
+.btn-red {
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.btn-outline {
+  background: transparent;
+  color: #111;
+  border: 1.5px solid #111;
+  padding: 0.75rem 1.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* BENEFICIOS */
+.beneficios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid #e0e0e0;
+}
+.card {
+  padding: 2.5rem;
+  border-right: 1px solid #e0e0e0;
+}
+.card:last-child { border-right: none; }
+.card-icon {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #c0392b;
+  margin-bottom: 0.8rem;
+}
+.card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: #111; }
+.card p { font-size: 0.88rem; color: #666; line-height: 1.6; }
+
+/* GENEROS */
+.generos {
+  padding: 3rem 4rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+.generos h2 {
+  font-family: Georgia, serif;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: #111;
+}
+.generos-grid {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.genero-item {
+  padding: 0.5rem 1.2rem;
+  border: 1.5px solid #111;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  color: #111;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.genero-item:hover {
+  background: #111;
+  color: #fff;
+}
+
+/* DESTACADOS */
+.destacados { padding: 3rem 4rem; border-bottom: 1px solid #e0e0e0; }
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.8rem;
+}
+.section-header h2 { font-family: Georgia, serif; font-size: 1.4rem; color: #111; }
+.section-header a { font-size: 0.85rem; color: #1a3a6b; text-decoration: none; }
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.book-card { cursor: default; }
+.book-cover {
+  width: 100%;
+  aspect-ratio: 2/3;
+  margin-bottom: 0.8rem;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+.cover-c1 { background: #111; }
+.cover-c2 { background: #1a3a6b; }
+.cover-c3 { background: #2c2c2c; }
+.cover-c4 { background: #3b0f0f; }
+.cover-deco {
+  position: absolute;
+  top: 1.2rem; left: 1.2rem; right: 1.2rem;
+  height: 2px;
+  background: rgba(255,255,255,0.2);
+}
+.cover-circle {
+  position: absolute;
+  right: -20px; top: -20px;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.cover-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  position: relative;
+  z-index: 1;
+}
+.book-card h4 { font-size: 0.88rem; font-weight: 700; color: #111; margin-bottom: 0.1rem; }
+.book-card .author { font-size: 0.78rem; color: #888; margin-bottom: 0.3rem; }
+.book-card .genre {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #aaa;
+}
+
+/* CTA */
+.cta {
+  text-align: center;
+  padding: 5rem 4rem;
+  background: #111;
+}
+.cta h2 {
+  font-family: Georgia, serif;
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+.cta p { font-size: 0.9rem; color: #999; margin-bottom: 2rem; }
