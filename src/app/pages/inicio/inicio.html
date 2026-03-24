@@ -1,14 +1,40 @@
+<div class="landing">
 
-<main class="main">
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Tu biblioteca digital en un clic 📚</h1>
+    <p>Compra o renta libros en PDF desde cualquier lugar</p>
 
-  <div class="productos">
-    <div class="producto" *ngFor="let p of productosFiltrados">
-      <img [src]="p.imagen" alt="">
-      <h3>{{ p.artista }}</h3>
-      <p>{{ p.nombre }}</p>
-      <strong>${{ p.precio }}</strong>
-      <button (click)="agregarAlCarrito(p)">Agregar</button>
+    <div class="botones">
+      <button class="btn-primary">Explorar libros</button>
+      <button class="btn-secondary">¿Cómo funciona?</button>
     </div>
-  </div>
+  </section>
 
-</main>
+  <!-- BENEFICIOS -->
+  <section class="beneficios">
+
+    <div class="card">
+      <h3>📥 Descarga inmediata</h3>
+      <p>Accede a tus libros al instante después de comprar</p>
+    </div>
+
+    <div class="card">
+      <h3>💸 Renta económica</h3>
+      <p>Lee por menos dinero con nuestro sistema de renta</p>
+    </div>
+
+    <div class="card">
+      <h3>📱 Acceso en todos lados</h3>
+      <p>Lee desde tu celular, tablet o computadora</p>
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>Empieza a leer hoy mismo</h2>
+    <button class="btn-primary">Ver catálogo</button>
+  </section>
+
+</div>

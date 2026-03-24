@@ -1,0 +1,22 @@
+<div class="login-container">
+  <h2>Login</h2>
+
+  <input 
+    type="email" 
+    placeholder="Correo"
+    [(ngModel)]="email"
+  >
+
+  <input 
+    type="password" 
+    placeholder="Contraseña"
+    [(ngModel)]="password"
+  >
+
+  <button (click)="login()">Entrar</button>
+
+  <p>
+  ¿No tienes cuenta?
+  <a routerLink="/registro">Regístrate</a>
+</p>
+</div>
