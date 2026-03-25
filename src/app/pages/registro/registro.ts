@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { SupabaseService } from '../../services/supabase';
+import { RouterLink, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, CommonModule],
   templateUrl: './registro.html',
   styleUrl: './registro.css'
 })
@@ -18,37 +19,58 @@ export class RegistroComponent {
   telefono = '';
   email = '';
   password = '';
+  errorMessage = '';
+  successMessage = '';
 
-  constructor(private supabaseService: SupabaseService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   async registrar() {
-
+    // Validaciones
     if (!this.email || !this.password) {
-      alert('Correo y contraseña obligatorios');
+      this.errorMessage = 'Correo y contraseña son obligatorios';
       return;
     }
 
-    const client = this.supabaseService['supabase'];
+    if (!this.nombre || !this.apellido) {
+      this.errorMessage = 'Nombre y apellido son obligatorios';
+      return;
+    }
 
-    const { data, error } = await client
-      .from('usuarios')
-      .insert([{
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    try {
+      const usuario = {
         nombre: this.nombre,
         apellido: this.apellido,
         curp: this.curp,
         telefono: this.telefono,
         email: this.email,
-        password: this.password,
-        tipo_usu: 'estudiante'
-      }]);
+        password: this.password
+      };
 
-    if (error) {
-      alert('Error: ' + error.message);
-    } else {
-      alert('Usuario registrado');
-      console.log(data);
+      const response: any = await this.authService.registro(usuario).toPromise();
+      
+     
+      
+      // Limpiar formulario
+      this.nombre = '';
+      this.apellido = '';
+      this.curp = '';
+      this.telefono = '';
+      this.email = '';
+      this.password = '';
+      
+      // Redirigir al login después de 2 segundos
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 2000);
+      
+    } catch (error: any) {
+      this.errorMessage = error.error?.error || 'Error al registrar usuario';
     }
-
   }
-
 }

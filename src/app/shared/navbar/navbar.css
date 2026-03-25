@@ -18,6 +18,12 @@
   text-decoration: none;
   letter-spacing: 0.03em;
 }
+
+.logo img {
+  height: 100px;
+  width: auto;
+  display: block;
+}
 .navbar .logo span { color: #c0392b; }
 
 .nav-links {

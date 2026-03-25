@@ -18,6 +18,19 @@ export class NavbarComponent {
     this.authService.usuario$.subscribe(u => this.usuario = u);
   }
 
+  get esAdmin() {
+    return this.usuario?.tipo === 'admin';
+  }
+
+ irHome() {
+  const tipo = this.usuario?.tipo?.toLowerCase();
+
+  if (tipo === 'admin') {
+    this.router.navigate(['/Dashboard']);
+  } else {
+    this.router.navigate(['/inicio']);
+  }
+}
   @HostListener('document:click', ['$event'])
   cerrarMenu(event: Event) {
     const el = event.target as HTMLElement;
@@ -28,4 +41,5 @@ export class NavbarComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
 }

@@ -1,7 +1,9 @@
 <nav class="navbar">
-  <a class="logo" routerLink="/">JC <span>Vende</span> Libros</a>
+<a class="logo" (click)="irHome()">
+  <img src="/assets/images/logo.jpg" alt="JC Vende Libros">
+</a>
 
-  <ul class="nav-links">
+<ul class="nav-links" *ngIf="!esAdmin">
     <li><a routerLink="/inicio">Inicio</a></li>
     <li><a routerLink="/genero/ficcion">Ficcion</a></li>
     <li><a routerLink="/genero/historia">Historia</a></li>
