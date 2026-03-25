@@ -10,14 +10,60 @@
     {{ successMessage }}
   </div>
 
-  <input type="text" placeholder="Nombre" [(ngModel)]="nombre">
-  <input type="text" placeholder="Apellido" [(ngModel)]="apellido">
-  <input type="text" placeholder="CURP" [(ngModel)]="curp">
-  <input type="text" placeholder="Teléfono" [(ngModel)]="telefono">
-  <input type="email" placeholder="Correo" [(ngModel)]="email">
-  <input type="password" placeholder="Contraseña" [(ngModel)]="password">
+  <!-- Campos del formulario -->
+  <input 
+    type="text" 
+    placeholder="Nombre" 
+    [(ngModel)]="nombre"
+    [disabled]="isLoading"
+    required>
+  
+  <input 
+    type="text" 
+    placeholder="Apellido" 
+    [(ngModel)]="apellido"
+    [disabled]="isLoading"
+    required>
+  
+  <input 
+    type="text" 
+    placeholder="CURP" 
+    [(ngModel)]="curp"
+    [disabled]="isLoading">
+  
+  <input 
+    type="text" 
+    placeholder="Teléfono" 
+    [(ngModel)]="telefono"
+    [disabled]="isLoading">
+  
+  <input 
+    type="email" 
+    placeholder="Correo electrónico" 
+    [(ngModel)]="email"
+    [disabled]="isLoading"
+    required>
+  
+  <input 
+    type="password" 
+    placeholder="Contraseña" 
+    [(ngModel)]="password"
+    [disabled]="isLoading"
+    required>
+  
+  <!-- ✅ NUEVO: Campo para confirmar contraseña -->
+  <input 
+    type="password" 
+    placeholder="Confirmar contraseña" 
+    [(ngModel)]="confirmPassword"
+    [disabled]="isLoading"
+    required>
 
-  <button (click)="registrar()">Registrarse</button>
+  <!-- ✅ Botón con estado de carga -->
+  <button (click)="registrar()" [disabled]="isLoading">
+    <span *ngIf="!isLoading">Registrarse</span>
+    <span *ngIf="isLoading">Registrando...</span>
+  </button>
 
   <p>
     ¿Ya tienes cuenta?

@@ -1,7 +1,25 @@
 <div class="dashboard-layout">
-  <app-sidebar></app-sidebar>
+    <app-sidebar></app-sidebar>
 
-  <main class="dashboard-content">
-    <p>dashboard works!</p>
-  </main>
+    <div class="dashboard-main">
+
+        <!-- NAVBAR INTERNO -->
+        <div class="dashboard-navbar">
+            <div class="logo">
+                <img src="/assets/images/logo.jpg" alt="JC">
+            </div>
+
+            <div class="perfil">
+                <div class="avatar">
+                    {{ (usuario?.nombre || usuario?.email)?.[0]?.toUpperCase() }}
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENIDO -->
+        <main class="dashboard-content">
+            <router-outlet></router-outlet>
+        </main>
+
+    </div>
 </div>
