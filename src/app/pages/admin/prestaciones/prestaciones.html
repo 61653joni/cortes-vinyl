@@ -1,1 +1,178 @@
-<p>prestaciones works!</p>
+<div class="wrap">
+
+  <div class="page-header">
+    <div>
+      <div class="page-title">Gestión de préstamos</div>
+      <div class="page-sub">Administra los préstamos de libros</div>
+    </div>
+    <button class="btn-primary" (click)="abrirFormulario()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
+      </svg>
+      Nuevo préstamo
+    </button>
+  </div>
+
+  <div *ngIf="mensaje" class="msg" [class.err]="esError">{{ mensaje }}</div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" [class.active]="mostrarFormulario" (click)="cerrarFormulario()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+
+      <div class="modal-head">
+        <span class="modal-title">Nuevo préstamo</span>
+        <button class="close-btn" (click)="cerrarFormulario()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="field">
+          <label>Libro *</label>
+          <select [(ngModel)]="nuevoPrestamo.id_libro">
+            <option value="">Seleccionar libro</option>
+            <option *ngFor="let libro of libros" [value]="libro.id"
+              [disabled]="libro.cantidad_disponible <= 0">
+              {{ libro.titulo }} — {{ libro.autor }}
+              ({{ libro.cantidad_disponible }}/{{ libro.cantidad_total }} disponibles)
+            </option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Usuario *</label>
+          <select [(ngModel)]="nuevoPrestamo.id_usuario">
+            <option value="">Seleccionar usuario</option>
+            <option *ngFor="let usuario of usuarios" [value]="usuario.id">
+              {{ usuario.nombre }} — {{ usuario.email }}
+            </option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Fecha inicio</label>
+            <input type="date" [(ngModel)]="nuevoPrestamo.fecha_inicio" readonly disabled>
+            <span class="field-hint">Se asigna automáticamente</span>
+          </div>
+          <div class="field">
+            <label>Fecha devolución *</label>
+            <input type="date" [(ngModel)]="nuevoPrestamo.fecha_fin" [min]="nuevoPrestamo.fecha_inicio">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-foot">
+        <button class="btn-secondary" (click)="cerrarFormulario()">Cancelar</button>
+        <button class="btn-primary" (click)="crearPrestamo()" [disabled]="cargando">
+          {{ cargando ? 'Guardando...' : 'Crear préstamo' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="card">
+    <div class="filter-bar">
+      <div class="filter-left">
+        <div class="field-inline">
+          <label>Estado</label>
+          <select [(ngModel)]="filtroEstado" (ngModelChange)="aplicarFiltros()">
+            <option value="todos">Todos</option>
+            <option value="activo">Activos</option>
+            <option value="devuelto">Devueltos</option>
+            <option value="vencido">Vencidos</option>
+            <option value="cancelado">Cancelados</option>
+          </select>
+        </div>
+        <div class="field-inline">
+          <label>Usuario</label>
+          <select [(ngModel)]="filtroUsuario" (ngModelChange)="aplicarFiltros()">
+            <option value="">Todos</option>
+            <option *ngFor="let usuario of usuarios" [value]="usuario.id">
+              {{ usuario.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="stats-row">
+        <span class="stat-badge">Total: {{ prestamosFiltrados.length }}</span>
+        <span class="stat-badge activos">Activos: {{ prestamosActivos }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="card">
+    <ng-container *ngIf="!cargando; else loading">
+      <div class="table-wrap" *ngIf="prestamosPagina.length > 0; else empty">
+        <table>
+          <thead>
+            <tr>
+              <th>Libro</th>
+              <th>Usuario</th>
+              <th>Inicio</th>
+              <th>Devolución</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of prestamosPagina">
+              <td class="cell-libro">
+                <span class="cell-main">{{ p.titulo || p.libros?.titulo || 'Sin título' }}</span>
+                <span class="cell-sub">{{ p.autor || p.libros?.autor || 'Sin autor' }}</span>
+              </td>
+              <td class="cell-usuario">
+                <span class="cell-main">{{ p.nombre || p.usuarios?.nombre || p.id_usuario }}</span>
+                <span class="cell-sub">{{ p.email || p.usuarios?.email }}</span>
+              </td>
+              <td class="cell-date">{{ p.fecha_inicio | date:'dd/MM/yyyy' }}</td>
+              <td class="cell-date" [class.vencida]="p.estado === 'activo' && p.fecha_fin < today">
+                {{ p.fecha_fin | date:'dd/MM/yyyy' }}
+              </td>
+              <td>
+                <span class="estado-pill" [ngClass]="getEstadoClass(p.estado)">
+                  {{ getEstadoTexto(p.estado) }}
+                </span>
+              </td>
+              <td class="cell-actions">
+                <button *ngIf="p.estado === 'activo'" class="btn-success" (click)="registrarDevolucion(p)">
+                  Devolver
+                </button>
+                <button *ngIf="p.estado === 'activo'" class="btn-danger-sm" (click)="cancelarPrestamo(p)">
+                  Cancelar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #empty>
+        <div class="empty-state">No hay préstamos que coincidan con los filtros.</div>
+      </ng-template>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <span>Cargando préstamos...</span>
+      </div>
+    </ng-template>
+
+    <div class="paginacion" *ngIf="totalPaginas > 1">
+      <button class="btn-pag" (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">
+        Anterior
+      </button>
+      <span class="pag-info">{{ paginaActual }} / {{ totalPaginas }}</span>
+      <button class="btn-pag" (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">
+        Siguiente
+      </button>
+    </div>
+  </div>
+
+</div>

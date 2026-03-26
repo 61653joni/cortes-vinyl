@@ -1,1 +1,202 @@
-<p>usuarios works!</p>
+<div class="wrap">
+
+  <div class="page-header">
+    <div class="page-title">Gestión de usuarios</div>
+    <div class="page-sub">Administra los usuarios, roles y estados de cuenta</div>
+  </div>
+
+  <div *ngIf="mensaje" class="msg" [class.err]="esError">{{ mensaje }}</div>
+
+  <!-- Estadísticas -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value">{{ totalUsuarios }}</div>
+      <div class="stat-label">Total usuarios</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value stat-red">{{ totalAdmin }}</div>
+      <div class="stat-label">Administradores</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value stat-blue">{{ totalEstudiantes }}</div>
+      <div class="stat-label">Estudiantes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value stat-muted">{{ totalBloqueados }}</div>
+      <div class="stat-label">Bloqueados</div>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="card">
+    <div class="filter-bar">
+      <div class="field-inline">
+        <label>Tipo</label>
+        <select [(ngModel)]="filtroTipo" (ngModelChange)="aplicarFiltros()">
+          <option value="todos">Todos</option>
+          <option value="admin">Administradores</option>
+          <option value="estudiante">Estudiantes</option>
+          <option value="bibliotecario">Bibliotecarios</option>
+        </select>
+      </div>
+      <div class="field-inline">
+        <label>Estado</label>
+        <select [(ngModel)]="filtroEstado" (ngModelChange)="aplicarFiltros()">
+          <option value="todos">Todos</option>
+          <option value="activo">Activos</option>
+          <option value="bloqueado">Bloqueados</option>
+          <option value="pendiente">Pendientes</option>
+        </select>
+      </div>
+      <div class="search-field">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/>
+        </svg>
+        <input type="text" [(ngModel)]="filtroBusqueda"
+          (ngModelChange)="aplicarFiltros()"
+          placeholder="Buscar por nombre, email o teléfono">
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="card">
+    <ng-container *ngIf="!cargando; else loading">
+      <div class="table-wrap" *ngIf="usuariosPagina.length > 0; else empty">
+        <table>
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Contacto</th>
+              <th>Rol</th>
+              <th>Estado</th>
+              <th>Verificado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuariosPagina">
+              <td>
+                <div class="user-cell">
+                  <div class="avatar">
+                    {{ (usuario.nombre?.charAt(0) || 'U') + (usuario.apellido?.charAt(0) || '') }}
+                  </div>
+                  <div class="user-info">
+                    <span class="cell-main">{{ usuario.nombre }} {{ usuario.apellido }}</span>
+                    <span class="cell-sub">ID: {{ usuario.id?.slice(0, 8) }}...</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="cell-main">{{ usuario.email }}</span>
+                <span class="cell-sub" *ngIf="usuario.telefono">{{ usuario.telefono }}</span>
+              </td>
+              <td>
+                <span class="pill" [ngClass]="getTipoClass(usuario.tipo_usu)">
+                  {{ getTipoTexto(usuario.tipo_usu) }}
+                </span>
+              </td>
+              <td>
+                <span class="pill" [ngClass]="getEstadoClass(usuario.estado)">
+                  {{ getEstadoTexto(usuario.estado) }}
+                </span>
+              </td>
+              <td>
+                <span class="verify" [class.verified]="usuario.email_verified">
+                  {{ usuario.email_verified ? 'Verificado' : 'Pendiente' }}
+                </span>
+              </td>
+              <td class="cell-actions">
+                <button *ngIf="usuario.tipo_usu !== 'admin'"
+                  class="btn-action btn-red" title="Hacer administrador"
+                  (click)="abrirModal(usuario, 'admin')">
+                  Admin
+                </button>
+                <button *ngIf="usuario.estado === 'activo' && usuario.tipo_usu !== 'admin'"
+                  class="btn-action btn-dark" title="Bloquear usuario"
+                  (click)="abrirModal(usuario, 'bloquear')">
+                  Bloquear
+                </button>
+                <button *ngIf="usuario.estado === 'bloqueado'"
+                  class="btn-action btn-blue" title="Desbloquear usuario"
+                  (click)="abrirModal(usuario, 'desbloquear')">
+                  Desbloquear
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #empty>
+        <div class="empty-state">No hay usuarios que coincidan con los filtros.</div>
+      </ng-template>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <span>Cargando usuarios...</span>
+      </div>
+    </ng-template>
+
+    <div class="paginacion" *ngIf="totalPaginas > 1">
+      <button class="btn-pag" (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">
+        Anterior
+      </button>
+      <span class="pag-info">{{ paginaActual }} / {{ totalPaginas }}</span>
+      <button class="btn-pag" (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">
+        Siguiente
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación -->
+<div class="modal-overlay" [class.active]="mostrarModal" (click)="cerrarModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+
+    <div class="modal-head">
+      <span class="modal-title">Confirmar acción</span>
+      <button class="close-btn" (click)="cerrarModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <ng-container *ngIf="accionModal === 'admin'">
+        <p class="confirm-text">
+          ¿Confirmas que quieres hacer <strong>administrador</strong> a
+          <strong>{{ usuarioSeleccionado?.nombre }} {{ usuarioSeleccionado?.apellido }}</strong>?
+        </p>
+        <p class="confirm-hint">Los administradores tienen acceso completo al sistema.</p>
+      </ng-container>
+
+      <ng-container *ngIf="accionModal === 'bloquear'">
+        <p class="confirm-text">
+          ¿Confirmas que quieres <strong>bloquear</strong> a
+          <strong>{{ usuarioSeleccionado?.nombre }} {{ usuarioSeleccionado?.apellido }}</strong>?
+        </p>
+        <p class="confirm-hint">El usuario no podrá iniciar sesión hasta ser desbloqueado.</p>
+      </ng-container>
+
+      <ng-container *ngIf="accionModal === 'desbloquear'">
+        <p class="confirm-text">
+          ¿Confirmas que quieres <strong>desbloquear</strong> a
+          <strong>{{ usuarioSeleccionado?.nombre }} {{ usuarioSeleccionado?.apellido }}</strong>?
+        </p>
+        <p class="confirm-hint">El usuario podrá iniciar sesión nuevamente.</p>
+      </ng-container>
+    </div>
+
+    <div class="modal-foot">
+      <button class="btn-secondary" (click)="cerrarModal()">Cancelar</button>
+      <button class="btn-primary" (click)="confirmarAccion()" [disabled]="cargando">
+        {{ cargando ? 'Procesando...' : 'Confirmar' }}
+      </button>
+    </div>
+
+  </div>
+</div>
