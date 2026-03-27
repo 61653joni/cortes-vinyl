@@ -1,0 +1,95 @@
+/* ── Contenedor ──────────────────────────────────────── */
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+/* ── Cabecera ────────────────────────────────────────── */
+.page-header {
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.page-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #111;
+  letter-spacing: -0.01em;
+}
+
+.page-sub {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 3px;
+}
+
+/* ── Tarjeta ─────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  padding: 2rem 2.25rem;
+}
+
+/* ── Intro ───────────────────────────────────────────── */
+.intro {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.7;
+  margin: 0 0 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* ── Secciones ───────────────────────────────────────── */
+.section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.section h2 {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #888;
+  margin: 0 0 10px;
+}
+
+.section p {
+  font-size: 0.88rem;
+  color: #444;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.section p strong {
+  color: #111;
+  font-weight: 600;
+}
+
+/* ── Pie ─────────────────────────────────────────────── */
+.footer-note {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #f0f0f0;
+  font-size: 0.75rem;
+  color: #bbb;
+  text-align: right;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 600px) {
+  .wrap { padding: 1rem; }
+  .card { padding: 1.25rem; }
+}

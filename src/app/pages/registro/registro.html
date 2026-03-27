@@ -1,72 +1,59 @@
-<div class="login-container">
-  <h2>Registro</h2>
+<div class="wrap">
+  <div class="form-card">
 
-  <!-- Mensajes de error y éxito -->
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
+    <div class="form-header">
+      <div class="form-title">Crear cuenta</div>
+      <div class="form-sub">Biblioteca JC — Registro de usuario</div>
+    </div>
+
+    <div *ngIf="errorMessage" class="msg err">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="msg ok">{{ successMessage }}</div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Nombre *</label>
+        <input type="text" [(ngModel)]="nombre" [disabled]="isLoading" placeholder="Nombre">
+      </div>
+      <div class="field">
+        <label>Apellido *</label>
+        <input type="text" [(ngModel)]="apellido" [disabled]="isLoading" placeholder="Apellido">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>CURP</label>
+        <input type="text" [(ngModel)]="curp" [disabled]="isLoading" placeholder="XXXX000000XXXXXX00">
+      </div>
+      <div class="field">
+        <label>Teléfono</label>
+        <input type="text" [(ngModel)]="telefono" [disabled]="isLoading" placeholder="55 0000 0000">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Correo electrónico *</label>
+      <input type="email" [(ngModel)]="email" [disabled]="isLoading" placeholder="correo@ejemplo.com">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Contraseña *</label>
+        <input type="password" [(ngModel)]="password" [disabled]="isLoading" placeholder="Mínimo 8 caracteres">
+      </div>
+      <div class="field">
+        <label>Confirmar contraseña *</label>
+        <input type="password" [(ngModel)]="confirmPassword" [disabled]="isLoading" placeholder="Repite tu contraseña">
+      </div>
+    </div>
+
+    <button class="btn-primary" (click)="registrar()" [disabled]="isLoading">
+      {{ isLoading ? 'Registrando...' : 'Crear cuenta' }}
+    </button>
+
+    <p class="footer-text">
+      ¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a>
+    </p>
+
   </div>
-  
-  <div *ngIf="successMessage" class="success-message">
-    {{ successMessage }}
-  </div>
-
-  <!-- Campos del formulario -->
-  <input 
-    type="text" 
-    placeholder="Nombre" 
-    [(ngModel)]="nombre"
-    [disabled]="isLoading"
-    required>
-  
-  <input 
-    type="text" 
-    placeholder="Apellido" 
-    [(ngModel)]="apellido"
-    [disabled]="isLoading"
-    required>
-  
-  <input 
-    type="text" 
-    placeholder="CURP" 
-    [(ngModel)]="curp"
-    [disabled]="isLoading">
-  
-  <input 
-    type="text" 
-    placeholder="Teléfono" 
-    [(ngModel)]="telefono"
-    [disabled]="isLoading">
-  
-  <input 
-    type="email" 
-    placeholder="Correo electrónico" 
-    [(ngModel)]="email"
-    [disabled]="isLoading"
-    required>
-  
-  <input 
-    type="password" 
-    placeholder="Contraseña" 
-    [(ngModel)]="password"
-    [disabled]="isLoading"
-    required>
-  
-  <!-- ✅ NUEVO: Campo para confirmar contraseña -->
-  <input 
-    type="password" 
-    placeholder="Confirmar contraseña" 
-    [(ngModel)]="confirmPassword"
-    [disabled]="isLoading"
-    required>
-
-  <!-- ✅ Botón con estado de carga -->
-  <button (click)="registrar()" [disabled]="isLoading">
-    <span *ngIf="!isLoading">Registrarse</span>
-    <span *ngIf="isLoading">Registrando...</span>
-  </button>
-
-  <p>
-    ¿Ya tienes cuenta?
-    <a routerLink="/login">Inicia sesión</a>
-  </p>
 </div>

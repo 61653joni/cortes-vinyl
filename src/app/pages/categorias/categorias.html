@@ -1,0 +1,65 @@
+
+<div class="categorias-container">
+
+  <!-- Cabecera -->
+  <div class="page-header">
+    <h1>{{ categoriaNombre }}</h1>
+    <p *ngIf="libros.length > 0 && !cargando" class="page-sub">
+      {{ libros.length }} libro{{ libros.length !== 1 ? 's' : '' }} en esta categoría
+    </p>
+  </div>
+
+  <!-- Cargando -->
+  <div *ngIf="cargando" class="loading-state">
+    <div class="spinner"></div>
+    <span>Cargando libros...</span>
+  </div>
+
+  <!-- Grid -->
+  <div *ngIf="!cargando && libros.length > 0" class="libros-grid">
+    <div *ngFor="let libro of libros" class="libro-card">
+
+      <div class="libro-imagen">
+        <img [src]="libro.imagen_url || '/assets/images/default-book.jpg'"
+             [alt]="libro.titulo"
+             (error)="onImageError($event)">
+        <span *ngIf="!estaDisponible(libro)" class="agotado-badge">Agotado</span>
+      </div>
+
+      <div class="libro-info">
+        <h3>{{ libro.titulo }}</h3>
+        <p class="autor">{{ libro.autor }}</p>
+
+        <div class="disponibilidad">
+          <span class="stock-pill" [class.agotado]="!estaDisponible(libro)">
+            {{ estaDisponible(libro) ? 'Disponible' : 'Agotado' }}
+          </span>
+          <span class="cantidad" *ngIf="estaDisponible(libro)">
+            {{ libro.cantidad_disponible }} disponibles
+          </span>
+        </div>
+
+        <button class="btn-ver"
+                [routerLink]="['/libro', libro.id]"
+                [disabled]="!estaDisponible(libro)">
+          {{ estaDisponible(libro) ? 'Ver detalles' : 'No disponible' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Estado vacío -->
+  <div *ngIf="!cargando && libros.length === 0" class="empty-state">
+    <div class="empty-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+      </svg>
+    </div>
+    <h3>No hay libros disponibles</h3>
+    <p>Pronto tendremos nuevos títulos en esta categoría</p>
+    <a routerLink="/categoria/todos" class="btn-outline">Ver todos los libros</a>
+  </div>
+
+</div>

@@ -1,18 +1,24 @@
 <div class="verify-container">
-  <!-- Estado de carga -->
-  <div *ngIf="isLoading" class="loading-container">
+
+  <!-- Cargando -->
+  <div *ngIf="isLoading" class="state-card">
     <div class="spinner"></div>
-    <p class="loading-text">Verificando tu correo electrónico...</p>
-    <p class="loading-subtext">Por favor espera un momento</p>
+    <p class="state-title">Verificando tu correo electrónico...</p>
+    <p class="state-sub">Por favor espera un momento</p>
   </div>
-  
-  <!-- Éxito - Correo verificado -->
-  <div *ngIf="!isLoading && isSuccess" class="success-card">
-    <div class="success-icon">✅</div>
-    <h2>¡Correo verificado exitosamente!</h2>
-    <p>Tu cuenta ha sido activada. Ahora puedes disfrutar de todos los servicios de la biblioteca.</p>
+
+  <!-- Éxito -->
+  <div *ngIf="!isLoading && isSuccess" class="state-card">
+    <div class="icon-wrap success-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2>Correo verificado</h2>
+    <p class="state-sub">Tu cuenta ha sido activada. Ahora puedes disfrutar de todos los servicios de la biblioteca.</p>
+
     <div class="info-box">
-      <p>📚 Ya puedes:</p>
+      <p class="info-label">Ya puedes</p>
       <ul>
         <li>Iniciar sesión en tu cuenta</li>
         <li>Solicitar préstamos de libros</li>
@@ -20,33 +26,36 @@
         <li>Actualizar tu información personal</li>
       </ul>
     </div>
-    <button class="btn-primary" (click)="goToLogin()">
-      Iniciar sesión ahora
-    </button>
+
+    <button class="btn-primary" (click)="goToLogin()">Iniciar sesión</button>
   </div>
-  
-  <!-- Error - Token inválido o expirado -->
-  <div *ngIf="!isLoading && !isSuccess && errorMessage" class="error-card">
-    <div class="error-icon">⚠️</div>
+
+  <!-- Error -->
+  <div *ngIf="!isLoading && !isSuccess && errorMessage" class="state-card">
+    <div class="icon-wrap error-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 8v4M12 16h.01" stroke-linecap="round"/>
+      </svg>
+    </div>
     <h2>Error de verificación</h2>
-    <p>{{ errorMessage }}</p>
-    
-    <div class="info-box error">
-      <p><strong>Posibles causas:</strong></p>
+    <p class="state-sub">{{ errorMessage }}</p>
+
+    <div class="info-box">
+      <p class="info-label">Posibles causas</p>
       <ul>
         <li>El enlace ya fue utilizado anteriormente</li>
         <li>El enlace ha expirado (válido por 24 horas)</li>
         <li>El enlace está incompleto o es inválido</li>
       </ul>
     </div>
-    
-    <div class="button-group">
-      <button class="btn-secondary" (click)="goToLogin()">
-        Volver al inicio
-      </button>
-      <button class="btn-primary" (click)="resendVerification()" *ngIf="email">
-        Reenviar correo de verificación
+
+    <div class="btn-group">
+      <button class="btn-secondary" (click)="goToLogin()">Volver al inicio</button>
+      <button class="btn-danger" (click)="resendVerification()" *ngIf="email">
+        Reenviar verificación
       </button>
     </div>
   </div>
+
 </div>

@@ -1,20 +1,31 @@
+<!-- src/app/components/navbar/navbar.component.html -->
 <nav class="navbar">
-<a class="logo" (click)="irHome()">
-  <img src="/assets/images/logo.jpg" alt="JC Vende Libros">
-</a>
+  <a class="logo" (click)="irHome()">
+    <img src="/assets/images/logo.jpg" alt="JC Vende Libros">
+  </a>
 
-<ul class="nav-links" *ngIf="!esAdmin">
+  <!-- Menú para usuarios normales -->
+  <ul class="nav-links" *ngIf="!esAdmin">
     <li><a routerLink="/inicio">Inicio</a></li>
-    <li><a routerLink="/genero/ficcion">Ficcion</a></li>
-    <li><a routerLink="/genero/historia">Historia</a></li>
-    <li><a routerLink="/genero/ciencia">Ciencia</a></li>
-    <li><a routerLink="/genero/desarrollo-personal">Desarrollo personal</a></li>
-    <li><a routerLink="/genero/infantil">Infantil</a></li>
-    <li><a routerLink="/genero/clasicos">Clasicos</a></li>
+    <!-- ✅ Categorías dinámicas desde el backend -->
+    <li *ngFor="let categoria of categorias">
+      <a [routerLink]="['/categoria', categoria.id]">
+        {{ categoria.nombre }}
+      </a>
+    </li>
+  </ul>
+
+  <!-- Menú para administradores -->
+  <ul class="nav-links" *ngIf="esAdmin">
+    <li><a routerLink="/dashboard">Dashboard</a></li>
+    <li><a routerLink="/libros">Libros</a></li>
+    <li><a routerLink="/categorias">Categorías</a></li>
+    <li><a routerLink="/prestamos">Préstamos</a></li>
+    <li><a routerLink="/usuarios">Usuarios</a></li>
   </ul>
 
   <div class="nav-actions">
-    <a *ngIf="!usuario" routerLink="/login" class="btn-login">Iniciar sesion</a>
+    <a *ngIf="!usuario" routerLink="/login" class="btn-login">Iniciar sesión</a>
 
     <div *ngIf="usuario" class="user-menu">
       <button class="user-trigger" (click)="menuAbierto = !menuAbierto">
@@ -27,7 +38,7 @@
 
       <div class="dropdown" *ngIf="menuAbierto">
         <a routerLink="/perfil" (click)="menuAbierto = false" class="dropdown-item">Ver perfil</a>
-        <button (click)="logout()" class="dropdown-item dropdown-logout">Cerrar sesion</button>
+        <button (click)="logout()" class="dropdown-item dropdown-logout">Cerrar sesión</button>
       </div>
     </div>
   </div>

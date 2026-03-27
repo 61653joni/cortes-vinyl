@@ -1,24 +1,133 @@
-.login-container {
-  width: 300px;
-  margin: 100px auto;
+/* ── Contenedor ──────────────────────────────────────── */
+.wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  font-family: sans-serif;
+}
+
+/* ── Tarjeta ─────────────────────────────────────────── */
+.form-card {
+  width: 100%;
+  max-width: 380px;
+  background: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  padding: 2.25rem 2rem;
+}
+
+/* ── Cabecera ────────────────────────────────────────── */
+.form-header {
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.form-title {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #111;
+  letter-spacing: -0.01em;
+}
+
+.form-sub {
+  font-size: 0.78rem;
+  color: #888;
+  margin-top: 3px;
+}
+
+/* ── Mensaje de error ────────────────────────────────── */
+.msg.err {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  margin-bottom: 1.25rem;
+  background: #fcebeb;
+  color: #791f1f;
+  border: 1px solid #f09595;
+}
+
+/* ── Campos ──────────────────────────────────────────── */
+.field {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
+  margin-bottom: 1rem;
 }
 
-input {
-  padding: 8px;
-  font-size: 14px;
+.field label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #888;
 }
 
-button {
-  padding: 10px;
-  background: black;
-  color: white;
+.field input {
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #111;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.field input:focus {
+  border-color: #111;
+}
+
+.field input:disabled {
+  background: #f9f9f9;
+  color: #bbb;
+  cursor: not-allowed;
+}
+
+/* ── Botón ───────────────────────────────────────────── */
+.btn-primary {
+  width: 100%;
+  height: 42px;
+  background: #111;
+  color: #fff;
   border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.15s;
+  margin-top: 0.5rem;
 }
 
-button:hover {
-  opacity: 0.8;
+.btn-primary:hover:not(:disabled) {
+  background: #333;
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Pie ─────────────────────────────────────────────── */
+.footer-text {
+  text-align: center;
+  font-size: 0.82rem;
+  color: #888;
+  margin: 1rem 0 0;
+}
+
+.footer-text a {
+  color: #185fa5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-text a:hover {
+  text-decoration: underline;
 }

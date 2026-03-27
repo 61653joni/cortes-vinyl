@@ -43,7 +43,7 @@
 .nav-actions { display: flex; align-items: center; gap: 1rem; }
 
 .btn-login {
-  background: #1a3a6b;
+  background: #111;
   color: #fff;
   padding: 0.5rem 1.2rem;
   border-radius: 4px;

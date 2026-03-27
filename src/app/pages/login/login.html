@@ -1,20 +1,32 @@
-<div class="login-container">
-    <h2>Login</h2>
+<div class="wrap">
+  <div class="form-card">
 
-    <input type="email" placeholder="Correo" [(ngModel)]="email" name="email">
-
-    <input type="password" placeholder="Contraseña" [(ngModel)]="password" name="password">
-
-
-    <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
+    <div class="form-header">
+      <div class="form-title">Iniciar sesión</div>
+      <div class="form-sub">Biblioteca JC — Acceso a tu cuenta</div>
     </div>
 
-    <button (click)="login()">Entrar</button>
+    <div *ngIf="errorMessage" class="msg err">{{ errorMessage }}</div>
 
-    <p>
-        ¿No tienes cuenta?
-        <a routerLink="/registro">Regístrate</a>
+    <div class="field">
+      <label>Correo electrónico</label>
+      <input type="email" [(ngModel)]="email" name="email"
+        placeholder="correo@ejemplo.com" [disabled]="isLoading">
+    </div>
+
+    <div class="field">
+      <label>Contraseña</label>
+      <input type="password" [(ngModel)]="password" name="password"
+        placeholder="Tu contraseña" [disabled]="isLoading">
+    </div>
+
+    <button class="btn-primary" (click)="login()" [disabled]="isLoading">
+      {{ isLoading ? 'Entrando...' : 'Entrar' }}
+    </button>
+
+    <p class="footer-text">
+      ¿No tienes cuenta? <a routerLink="/registro">Regístrate</a>
     </p>
 
+  </div>
 </div>
